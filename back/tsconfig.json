@@ -16,6 +16,6 @@
 		"sourceMap": true,
     	"outDir": "./dist",
 	},
-	"include": ["src", "app.ts"],
+	"include": ["src", "knexfile.ts"],
 	"exclude": ["node_modules"]
 }
