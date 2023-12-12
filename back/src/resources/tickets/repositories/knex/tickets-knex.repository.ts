@@ -1,7 +1,7 @@
 import type { Knex } from 'knex'
 import { database } from '../../../../database'
-import { Ticket } from '../../entities/tickets.entity'
-import { TicketsRepository } from '../tickets.reporitory'
+import { Ticket, TicketStatus, UnityEnum } from '../../entities/tickets.entity'
+import { TicketsRepository, tFilterOptions } from '../tickets.reporitory'
 
 class TicketsKnexRepository implements TicketsRepository {
     private queryBuilder: Knex.QueryBuilder
@@ -10,11 +10,35 @@ class TicketsKnexRepository implements TicketsRepository {
         this.queryBuilder = database<Ticket>(tableName)
     }
 
-    async findAll(): Promise<Ticket[]> {
+    async findAll(filterOptions: tFilterOptions): Promise<Ticket[]> {
         throw new Error('Method not implemented.')
     }
 
-    async findById(id: string): Promise<Ticket> {
+    async countTicketByStatus(
+        status: TicketStatus,
+        filterOptions: tFilterOptions,
+    ): Promise<{ count: number }> {
+        throw new Error('Method not implemented.')
+    }
+
+    async countTicketByUnity(
+        unity: UnityEnum,
+        filterOptions: tFilterOptions,
+    ): Promise<{ count: number }> {
+        throw new Error('Method not implemented.')
+    }
+
+    async countTicketByUser(
+        clientId: string,
+        filterOptions: tFilterOptions,
+    ): Promise<{ count: number }> {
+        throw new Error('Method not implemented.')
+    }
+
+    async totalSaleByUnity(
+        unity: UnityEnum,
+        filterOptions: tFilterOptions,
+    ): Promise<{ total_sale: number }> {
         throw new Error('Method not implemented.')
     }
 }
