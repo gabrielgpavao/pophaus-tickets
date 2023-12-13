@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { Knex } from 'knex'
 import { database } from '../../../../database'
 import { Ticket, TicketStatus, UnityEnum } from '../../entities/tickets.entity'
