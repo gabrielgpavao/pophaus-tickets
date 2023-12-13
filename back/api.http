@@ -1,0 +1,14 @@
+###
+GET http://localhost:3000/tickets
+
+###
+GET http://localhost:3000/tickets/status/USED/count?date=2023-01-01
+
+###
+GET http://localhost:3000/tickets/unity/TATUAPE/count?date=2023-01-01
+
+###
+GET http://localhost:3000/tickets/user/57f5867d-bfb9-4919-8e8e-16509238a4d6/count
+
+###
+GET http://localhost:3000/tickets/unity/TATUAPE/sales
