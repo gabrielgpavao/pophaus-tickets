@@ -55,6 +55,19 @@ class TicketsController {
 
         return res.status(200).json(count)
     }
+
+    async totalSalesByUnity(req: Request, res: Response) {
+        const unity = unityEnumSchema.parse(req.params.unity)
+
+        const isEmpty = !Object.values(req.query).length
+
+        const totalSales = await ticketsService.totalSaleByUnity(
+            unity,
+            isEmpty ? undefined : req.query,
+        )
+
+        return res.status(200).json(totalSales)
+    }
 }
 
 export const ticketsController = new TicketsController()

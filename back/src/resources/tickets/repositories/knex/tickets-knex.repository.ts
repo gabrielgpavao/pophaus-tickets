@@ -27,7 +27,7 @@ class TicketsKnexRepository implements TicketsRepository {
                 .orderBy(filterKey, 'asc')
         }
 
-        return await this.queryBuilder.limit(3)
+        return await this.queryBuilder
     }
 
     async countTicketByStatus(
@@ -109,7 +109,30 @@ class TicketsKnexRepository implements TicketsRepository {
         unity: UnityEnum,
         filterOptions?: tFilterOptions,
     ): Promise<{ total_sale: number }> {
-        throw new Error('Method not implemented.')
+        if (filterOptions) {
+            if (filterOptions.created_at && filterOptions.date) {
+                return await this.queryBuilder
+                    .whereNotNull('id_transaction')
+                    .andWhere('filial', unity)
+                    .andWhere('created_at', '>=', filterOptions.created_at)
+                    .andWhere('date', '>=', filterOptions.date)
+                    .sum({ total_sales: 'ticket_total' })
+            }
+
+            const [filterKey] = Object.keys(filterOptions)
+            const [filterValue] = Object.values(filterOptions)
+
+            return await this.queryBuilder
+                .whereNotNull('id_transaction')
+                .andWhere('filial', unity)
+                .andWhere(filterKey, '>=', filterValue)
+                .sum({ total_sales: 'ticket_total' })
+        }
+
+        return await this.queryBuilder
+            .whereNotNull('id_transaction')
+            .andWhere('filial', unity)
+            .sum({ total_sales: 'ticket_total' })
     }
 }
 

@@ -35,6 +35,13 @@ class TicketsService {
             filterOptions,
         )
     }
+
+    async totalSaleByUnity(unity: UnityEnum, filterOptions?: tFilterOptions) {
+        return await this.ticketsRepository.totalSaleByUnity(
+            unity,
+            filterOptions,
+        )
+    }
 }
 
 const ticketsService = new TicketsService(ticketsRepository)

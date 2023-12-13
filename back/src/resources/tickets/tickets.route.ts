@@ -23,3 +23,9 @@ ticketsRoute.get(
     validateQueryMiddleware,
     ticketsController.countTicketByUser,
 )
+
+ticketsRoute.get(
+    '/unity/:unity/sales',
+    validateQueryMiddleware,
+    ticketsController.totalSalesByUnity,
+)
