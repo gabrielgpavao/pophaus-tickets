@@ -1,31 +1,31 @@
 import { Ticket, TicketStatus, UnityEnum } from '../entities/tickets.entity'
 
 type tFilterOptions = {
-    ticket_date?: string
+    date?: string
     created_at?: string
 }
 
 abstract class TicketsRepository {
-    abstract findAll(filterOptions: tFilterOptions): Promise<Ticket[]>
+    abstract findAll(filterOptions?: tFilterOptions): Promise<Ticket[]>
 
     abstract countTicketByStatus(
         status: TicketStatus,
-        filterOptions: tFilterOptions,
+        filterOptions?: tFilterOptions,
     ): Promise<{ count: number }>
 
     abstract countTicketByUnity(
         unity: UnityEnum,
-        filterOptions: tFilterOptions,
+        filterOptions?: tFilterOptions,
     ): Promise<{ count: number }>
 
     abstract countTicketByUser(
         clientId: string,
-        filterOptions: tFilterOptions,
+        filterOptions?: tFilterOptions,
     ): Promise<{ count: number }>
 
     abstract totalSaleByUnity(
         unity: UnityEnum,
-        filterOptions: tFilterOptions,
+        filterOptions?: tFilterOptions,
     ): Promise<{ total_sale: number }>
 }
 
