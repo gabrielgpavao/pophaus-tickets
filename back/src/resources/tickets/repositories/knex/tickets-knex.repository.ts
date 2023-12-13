@@ -33,21 +33,39 @@ class TicketsKnexRepository implements TicketsRepository {
     async countTicketByStatus(
         status: TicketStatus,
         filterOptions?: tFilterOptions,
-    ): Promise<{ count: number }> {
-        throw new Error('Method not implemented.')
+    ): Promise<{ count: string }> {
+        if (filterOptions) {
+            if (filterOptions.created_at && filterOptions.date) {
+                return await this.queryBuilder
+                    .where('status', status)
+                    .andWhere('created_at', '>=', filterOptions.created_at)
+                    .andWhere('date', '>=', filterOptions.date)
+                    .count('*')
+            }
+
+            const [filterKey] = Object.keys(filterOptions)
+            const [filterValue] = Object.values(filterOptions)
+
+            return await this.queryBuilder
+                .where('status', status)
+                .andWhere(filterKey, '>=', filterValue)
+                .count('*')
+        }
+
+        return await this.queryBuilder.where('status', status).count('*')
     }
 
     async countTicketByUnity(
         unity: UnityEnum,
         filterOptions?: tFilterOptions,
-    ): Promise<{ count: number }> {
+    ): Promise<{ count: string }> {
         throw new Error('Method not implemented.')
     }
 
     async countTicketByUser(
         clientId: string,
         filterOptions?: tFilterOptions,
-    ): Promise<{ count: number }> {
+    ): Promise<{ count: string }> {
         throw new Error('Method not implemented.')
     }
 

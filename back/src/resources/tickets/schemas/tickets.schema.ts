@@ -1,8 +1,10 @@
 import { z } from 'zod'
+import { TicketStatus } from '../entities/tickets.entity'
+import { AppError } from '../../../constants/AppError'
 
 const dateRegex: RegExp = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/
 
-export const filterOptionsSchema = z
+const filterOptionsSchema = z
     .object({
         date: z
             .string()
@@ -18,3 +20,15 @@ export const filterOptionsSchema = z
             ),
     })
     .partial()
+
+const ticketStatusSchema = z.nativeEnum(TicketStatus, {
+    errorMap: (issue, ctx) => {
+        if (issue.code === z.ZodIssueCode.invalid_enum_value) {
+            throw new AppError('InvalidTicketStatus', ctx.defaultError)
+        }
+
+        return { message: ctx.defaultError }
+    },
+})
+
+export { filterOptionsSchema, ticketStatusSchema }

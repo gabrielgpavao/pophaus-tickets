@@ -1,2 +1,5 @@
 ###
 GET http://localhost:3000/tickets?date=2024-01-01
+
+###
+GET http://localhost:3000/tickets/status/USED/count?date=2023-01-01

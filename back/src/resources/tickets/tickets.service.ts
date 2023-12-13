@@ -1,3 +1,4 @@
+import { TicketStatus } from './entities/tickets.entity'
 import { ticketsRepository } from './repositories/knex/tickets-knex.repository'
 import {
     TicketsRepository,
@@ -9,6 +10,16 @@ class TicketsService {
 
     async findAll(filterOptions?: tFilterOptions) {
         return await this.ticketsRepository.findAll(filterOptions)
+    }
+
+    async countTicketByStatus(
+        ticketStatus: TicketStatus,
+        filterOptions?: tFilterOptions,
+    ) {
+        return await this.ticketsRepository.countTicketByStatus(
+            ticketStatus,
+            filterOptions,
+        )
     }
 }
 

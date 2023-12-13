@@ -11,17 +11,17 @@ abstract class TicketsRepository {
     abstract countTicketByStatus(
         status: TicketStatus,
         filterOptions?: tFilterOptions,
-    ): Promise<{ count: number }>
+    ): Promise<{ count: string }>
 
     abstract countTicketByUnity(
         unity: UnityEnum,
         filterOptions?: tFilterOptions,
-    ): Promise<{ count: number }>
+    ): Promise<{ count: string }>
 
     abstract countTicketByUser(
         clientId: string,
         filterOptions?: tFilterOptions,
-    ): Promise<{ count: number }>
+    ): Promise<{ count: string }>
 
     abstract totalSaleByUnity(
         unity: UnityEnum,
