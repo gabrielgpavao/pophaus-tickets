@@ -1,2 +1,2 @@
 ###
-GET http://localhost:3000/tickets?ola=he-llo
+GET http://localhost:3000/tickets?date=2024-01-01

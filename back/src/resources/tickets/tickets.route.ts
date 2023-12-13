@@ -1,8 +1,7 @@
-import { Request, Response, Router } from 'express'
+import { Router } from 'express'
 import { ticketsController } from './tickets.controller'
+import { validateQueryMiddleware } from './middlewares/validate-query.middleware'
 
 export const ticketsRoute = Router()
 
-ticketsRoute.get('/', (req: Request, res: Response) => {
-    ticketsController.findAll(req, res)
-})
+ticketsRoute.get('/', validateQueryMiddleware, ticketsController.findAll)
