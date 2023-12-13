@@ -59,7 +59,25 @@ class TicketsKnexRepository implements TicketsRepository {
         unity: UnityEnum,
         filterOptions?: tFilterOptions,
     ): Promise<{ count: string }> {
-        throw new Error('Method not implemented.')
+        if (filterOptions) {
+            if (filterOptions.created_at && filterOptions.date) {
+                return await this.queryBuilder
+                    .where('filial', unity)
+                    .andWhere('created_at', '>=', filterOptions.created_at)
+                    .andWhere('date', '>=', filterOptions.date)
+                    .count('*')
+            }
+
+            const [filterKey] = Object.keys(filterOptions)
+            const [filterValue] = Object.values(filterOptions)
+
+            return await this.queryBuilder
+                .where('filial', unity)
+                .andWhere(filterKey, '>=', filterValue)
+                .count('*')
+        }
+
+        return await this.queryBuilder.where('filial', unity).count('*')
     }
 
     async countTicketByUser(

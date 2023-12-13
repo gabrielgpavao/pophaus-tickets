@@ -1,4 +1,4 @@
-import { TicketStatus } from './entities/tickets.entity'
+import { TicketStatus, UnityEnum } from './entities/tickets.entity'
 import { ticketsRepository } from './repositories/knex/tickets-knex.repository'
 import {
     TicketsRepository,
@@ -18,6 +18,13 @@ class TicketsService {
     ) {
         return await this.ticketsRepository.countTicketByStatus(
             ticketStatus,
+            filterOptions,
+        )
+    }
+
+    async countTicketByUnity(unity: UnityEnum, filterOptions?: tFilterOptions) {
+        return await this.ticketsRepository.countTicketByUnity(
+            unity,
             filterOptions,
         )
     }

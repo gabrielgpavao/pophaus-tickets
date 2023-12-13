@@ -10,3 +10,8 @@ ticketsRoute.get(
     validateQueryMiddleware,
     ticketsController.countTicketByStatus,
 )
+ticketsRoute.get(
+    '/unity/:unity/count',
+    validateQueryMiddleware,
+    ticketsController.countTicketByUnity,
+)

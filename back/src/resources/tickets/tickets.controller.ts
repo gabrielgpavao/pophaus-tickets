@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import { TicketsService, ticketsService } from './tickets.service'
-import { ticketStatusSchema } from './schemas/tickets.schema'
+import { ticketStatusSchema, unityEnumSchema } from './schemas/tickets.schema'
 
 class TicketsController {
     constructor(private readonly ticketsService: TicketsService) {}
@@ -22,6 +22,19 @@ class TicketsController {
 
         const count = await ticketsService.countTicketByStatus(
             ticketStatus,
+            isEmpty ? undefined : req.query,
+        )
+
+        return res.status(200).json(count)
+    }
+
+    async countTicketByUnity(req: Request, res: Response) {
+        const unity = unityEnumSchema.parse(req.params.unity)
+
+        const isEmpty = !Object.values(req.query).length
+
+        const count = await ticketsService.countTicketByUnity(
+            unity,
             isEmpty ? undefined : req.query,
         )
 

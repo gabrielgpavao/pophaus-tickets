@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { TicketStatus } from '../entities/tickets.entity'
+import { TicketStatus, UnityEnum } from '../entities/tickets.entity'
 import { AppError } from '../../../constants/AppError'
 
 const dateRegex: RegExp = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/
@@ -31,4 +31,14 @@ const ticketStatusSchema = z.nativeEnum(TicketStatus, {
     },
 })
 
-export { filterOptionsSchema, ticketStatusSchema }
+const unityEnumSchema = z.nativeEnum(UnityEnum, {
+    errorMap: (issue, ctx) => {
+        if (issue.code === z.ZodIssueCode.invalid_enum_value) {
+            throw new AppError('InvalidUnity', ctx.defaultError)
+        }
+
+        return { message: ctx.defaultError }
+    },
+})
+
+export { filterOptionsSchema, ticketStatusSchema, unityEnumSchema }
