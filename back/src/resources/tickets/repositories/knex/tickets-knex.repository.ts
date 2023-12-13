@@ -27,7 +27,7 @@ class TicketsKnexRepository implements TicketsRepository {
                 .orderBy(filterKey, 'asc')
         }
 
-        return await this.queryBuilder
+        return await this.queryBuilder.limit(3)
     }
 
     async countTicketByStatus(
@@ -84,7 +84,25 @@ class TicketsKnexRepository implements TicketsRepository {
         clientId: string,
         filterOptions?: tFilterOptions,
     ): Promise<{ count: string }> {
-        throw new Error('Method not implemented.')
+        if (filterOptions) {
+            if (filterOptions.created_at && filterOptions.date) {
+                return await this.queryBuilder
+                    .where('client_id', clientId)
+                    .andWhere('created_at', '>=', filterOptions.created_at)
+                    .andWhere('date', '>=', filterOptions.date)
+                    .count('*')
+            }
+
+            const [filterKey] = Object.keys(filterOptions)
+            const [filterValue] = Object.values(filterOptions)
+
+            return await this.queryBuilder
+                .where('client_id', clientId)
+                .andWhere(filterKey, '>=', filterValue)
+                .count('*')
+        }
+
+        return await this.queryBuilder.where('client_id', clientId).count('*')
     }
 
     async totalSaleByUnity(

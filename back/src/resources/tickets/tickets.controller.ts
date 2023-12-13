@@ -1,14 +1,16 @@
 import { Request, Response } from 'express'
-import { TicketsService, ticketsService } from './tickets.service'
-import { ticketStatusSchema, unityEnumSchema } from './schemas/tickets.schema'
+import { ticketsService } from './tickets.service'
+import {
+    ticketStatusSchema,
+    unityEnumSchema,
+    uuidSchema,
+} from './schemas/tickets.schema'
 
 class TicketsController {
-    constructor(private readonly ticketsService: TicketsService) {}
-
     async findAll(req: Request, res: Response) {
         const isEmpty = !Object.values(req.query).length
 
-        const tickets = await this.ticketsService.findAll(
+        const tickets = await ticketsService.findAll(
             isEmpty ? undefined : req.query,
         )
 
@@ -40,6 +42,19 @@ class TicketsController {
 
         return res.status(200).json(count)
     }
+
+    async countTicketByUser(req: Request, res: Response) {
+        const userId = uuidSchema.parse(req.params.id)
+
+        const isEmpty = !Object.values(req.query).length
+
+        const count = await ticketsService.countTicketByUser(
+            userId,
+            isEmpty ? undefined : req.query,
+        )
+
+        return res.status(200).json(count)
+    }
 }
 
-export const ticketsController = new TicketsController(ticketsService)
+export const ticketsController = new TicketsController()

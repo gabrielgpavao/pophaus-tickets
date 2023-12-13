@@ -41,4 +41,6 @@ const unityEnumSchema = z.nativeEnum(UnityEnum, {
     },
 })
 
-export { filterOptionsSchema, ticketStatusSchema, unityEnumSchema }
+const uuidSchema = z.string().uuid()
+
+export { filterOptionsSchema, ticketStatusSchema, unityEnumSchema, uuidSchema }

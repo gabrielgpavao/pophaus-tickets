@@ -28,6 +28,13 @@ class TicketsService {
             filterOptions,
         )
     }
+
+    async countTicketByUser(userId: string, filterOptions?: tFilterOptions) {
+        return await this.ticketsRepository.countTicketByUser(
+            userId,
+            filterOptions,
+        )
+    }
 }
 
 const ticketsService = new TicketsService(ticketsRepository)
