@@ -1,23 +1,14 @@
-###
-GET http://localhost:3000/tickets
+### Listagem de ingressos
+GET http://localhost:3000/tickets?date=2023-01-01&created_at=2023-01-01
 
-###
+### Contador de ingressos por status
 GET http://localhost:3000/tickets/status/USED/count?date=2023-01-01
 
-###
+### Contador de ingressos por unidade
 GET http://localhost:3000/tickets/unity/TATUAPE/count?date=2023-01-01
 
-###
+### Contador de ingressos por usuário
 GET http://localhost:3000/tickets/user/57f5867d-bfb9-4919-8e8e-16509238a4d6/count
 
-###
+### Soma do total de vendas por unidade
 GET http://localhost:3000/tickets/unity/TATUAPE/sales
-
-###
-GET http://localhost:3000/templates/hours/2023-11-01
-
-###
-GET http://localhost:3000/templates/dates/debora.cussolim@hotmail.com
-
-###
-GET http://localhost:3000/templates/dates/2023-11-01/count
