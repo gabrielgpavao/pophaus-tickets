@@ -17,9 +17,15 @@ export function handleErrorsMiddleware(
     }
 
     if (error instanceof ZodError) {
+        if (Object.values(error.flatten().fieldErrors).length) {
+            return response
+                .status(HttpStatus.BAD_REQUEST)
+                .json({ message: error.flatten().fieldErrors })
+        }
+
         return response
             .status(HttpStatus.BAD_REQUEST)
-            .json({ message: error.flatten().fieldErrors })
+            .json({ message: error.flatten().formErrors })
     }
 
     console.error(error)

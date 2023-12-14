@@ -5,6 +5,7 @@ import {
     unityEnumSchema,
     uuidSchema,
 } from './schemas/tickets.schema'
+import { HttpStatus } from '../../constants/HttpStatus'
 
 class TicketsController {
     async findAll(req: Request, res: Response) {
@@ -14,7 +15,7 @@ class TicketsController {
             isEmpty ? undefined : req.query,
         )
 
-        return res.status(200).json(tickets)
+        return res.status(HttpStatus.OK).json(tickets)
     }
 
     async countTicketByStatus(req: Request, res: Response) {
@@ -27,7 +28,7 @@ class TicketsController {
             isEmpty ? undefined : req.query,
         )
 
-        return res.status(200).json(count)
+        return res.status(HttpStatus.OK).json(count)
     }
 
     async countTicketByUnity(req: Request, res: Response) {
@@ -40,7 +41,7 @@ class TicketsController {
             isEmpty ? undefined : req.query,
         )
 
-        return res.status(200).json(count)
+        return res.status(HttpStatus.OK).json(count)
     }
 
     async countTicketByUser(req: Request, res: Response) {
@@ -53,7 +54,7 @@ class TicketsController {
             isEmpty ? undefined : req.query,
         )
 
-        return res.status(200).json(count)
+        return res.status(HttpStatus.OK).json(count)
     }
 
     async totalSalesByUnity(req: Request, res: Response) {
@@ -66,7 +67,7 @@ class TicketsController {
             isEmpty ? undefined : req.query,
         )
 
-        return res.status(200).json(totalSales)
+        return res.status(HttpStatus.OK).json(totalSales)
     }
 }
 

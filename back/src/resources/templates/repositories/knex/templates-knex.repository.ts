@@ -4,6 +4,7 @@ import { TemplatesRepository } from '../templates.repository'
 import { database } from '../../../../database'
 import { Template } from '../../entities/templates.entity'
 import { Hour } from '../../entities/hours.entity'
+import { UnityEnum } from '../../../tickets/entities/tickets.entity'
 
 class TemplatesKnexRepository implements TemplatesRepository {
     private queryBuilder: Knex.QueryBuilder
@@ -12,8 +13,12 @@ class TemplatesKnexRepository implements TemplatesRepository {
         this.queryBuilder = database<Template>(tableName)
     }
 
-    async listHoursByDate(date: string): Promise<Hour> {
-        throw new Error('Method not implemented.')
+    async listHoursByDate(
+        date: string,
+    ): Promise<{ filial: UnityEnum; hours: Hour[] }[]> {
+        return await this.queryBuilder
+            .select('filial', 'hours')
+            .where('date', date)
     }
 
     async listDatesByUserEmail(email: string): Promise<{ date: string }[]> {
