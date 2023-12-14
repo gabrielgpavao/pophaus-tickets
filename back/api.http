@@ -18,3 +18,6 @@ GET http://localhost:3000/templates/hours/2023-11-01
 
 ###
 GET http://localhost:3000/templates/dates/debora.cussolim@hotmail.com
+
+###
+GET http://localhost:3000/templates/dates/2023-11-01/count

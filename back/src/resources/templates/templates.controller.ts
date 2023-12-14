@@ -17,6 +17,13 @@ class TemplatesController {
 
         return res.status(HttpStatus.OK).json(dates)
     }
+
+    async counterClients(req: Request, res: Response) {
+        const dateParam = dateParamSchema.parse(req.params.date)
+        const counter = await templatesService.counterClients(dateParam)
+
+        return res.status(HttpStatus.OK).json(counter)
+    }
 }
 
 export const templatesController = new TemplatesController()

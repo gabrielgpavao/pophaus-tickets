@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Knex } from 'knex'
-import { TemplatesRepository } from '../templates.repository'
+import { TemplatesRepository, tCounterClients } from '../templates.repository'
 import { database } from '../../../../database'
 import { Template } from '../../entities/templates.entity'
 import { Hour } from '../../entities/hours.entity'
@@ -29,12 +28,38 @@ class TemplatesKnexRepository implements TemplatesRepository {
             .where('users.email', email)
     }
 
-    async counterClients(
-        date: string,
-    ): Promise<
-        Record<'players' | 'not_players' | 'pcd' | 'total_clients', string>
-    > {
-        throw new Error('Method not implemented.')
+    async counterClients(date: string): Promise<tCounterClients> {
+        const [disabledPeople, people] = await Promise.all([
+            this.queryBuilder
+                .from('tickets_und')
+                .where('date', date)
+                .sum({ disabled_people: 'pcd_tickets' })
+                .first(),
+
+            database
+                .from('orders_tickets')
+                .where('date', date)
+                .sum({
+                    players: 'players',
+                    not_players: 'not_players',
+                })
+                .first(),
+        ])
+
+        const counter = {
+            ...disabledPeople,
+            ...people,
+        }
+
+        return {
+            ...counter,
+            total_clients: Object.values(counter)
+                .reduce<number>(
+                    (prev, curr) => prev + parseInt(curr as string),
+                    0,
+                )
+                .toString(),
+        }
     }
 }
 

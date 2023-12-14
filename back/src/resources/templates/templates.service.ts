@@ -11,6 +11,10 @@ class TemplatesService {
     async listDatesByUserEmail(email: string) {
         return await this.templatesRepository.listDatesByUserEmail(email)
     }
+
+    async counterClients(date: string) {
+        return await this.templatesRepository.counterClients(date)
+    }
 }
 
 const templatesService = new TemplatesService(templatesRepository)
