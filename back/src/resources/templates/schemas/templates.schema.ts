@@ -9,4 +9,6 @@ const dateParamSchema = z
         "'date' param must be in the following format: yyyy-mm-dd",
     )
 
-export { dateParamSchema }
+const emailParamSchema = z.string().email()
+
+export { dateParamSchema, emailParamSchema }

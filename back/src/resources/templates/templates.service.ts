@@ -7,6 +7,10 @@ class TemplatesService {
     async listHoursByDate(date: string) {
         return await this.templatesRepository.listHoursByDate(date)
     }
+
+    async listDatesByUserEmail(email: string) {
+        return await this.templatesRepository.listDatesByUserEmail(email)
+    }
 }
 
 const templatesService = new TemplatesService(templatesRepository)

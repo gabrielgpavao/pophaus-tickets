@@ -22,7 +22,11 @@ class TemplatesKnexRepository implements TemplatesRepository {
     }
 
     async listDatesByUserEmail(email: string): Promise<{ date: string }[]> {
-        throw new Error('Method not implemented.')
+        return await this.queryBuilder
+            .from('tickets_und')
+            .join('users', 'tickets_und.client_id', '=', 'users.id')
+            .select('tickets_und.date')
+            .where('users.email', email)
     }
 
     async counterClients(
