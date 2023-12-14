@@ -1,0 +1,8 @@
+### Listagem de horários por data
+GET http://localhost:3000/templates/hours/2023-11-01
+
+### Listagem de datas em que o usuário com o e-mail X esteve no parque
+GET http://localhost:3000/templates/dates/debora.cussolim@hotmail.com
+
+### Contador de brincantes, não brincantes e PCDs por data.
+GET http://localhost:3000/templates/dates/2023-11-01/count
