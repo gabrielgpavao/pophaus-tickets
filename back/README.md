@@ -1,7 +1,5 @@
 # PopHaus Tickets Server
 
-Responsive interface of a messaging application that simulates sending and receiving SMS in real time using tools such as React (Vite), TypeScript and Styled-Components.
-
 ## Running Locally Guide
 
 Once you have cloned this repository on your machine, follow these next steps:
